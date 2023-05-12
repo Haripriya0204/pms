@@ -120,4 +120,13 @@ public class SecurityMasterService {
 	 return repo.save(dataMaster);
 	}
 
+	public SecurityMaster fetchMasterDataByName(String nameOfCompany) {
+		Optional<SecurityMaster> dataOptional = repo.findByNameOfCompany(nameOfCompany);
+		if (dataOptional.isPresent()) {
+			return dataOptional.get();
+		} else {
+			throw new DataNotFoundException("Name is invalid");
+		}
+	}
+
 }

@@ -10,8 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,16 +23,14 @@ public class PortfolioDetails
 	private String portfolioName;
 	private String baseCurrency;
 	private String exchange;
-	private String benchmark;
-	
-	
+	private String benchmark;	
 	private String fundManagerName;
 	private double initialInvestment;
 	private double currentValue;
 	private String rebalancingFrequency;
 	private String status;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "ThemeName",referencedColumnName="themeName")
     private Themes theme;
 

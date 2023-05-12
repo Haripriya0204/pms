@@ -17,4 +17,6 @@ public interface SecurityMasterRepository extends JpaRepository<SecurityMaster, 
 	public List<SecurityMaster>  findBySectorContaining(String sector);
 	
 	public Optional<SecurityMaster> findBySymbol(String symbol);
+
+	public Optional<SecurityMaster> findByNameOfCompany(String nameOfCompany);
 }

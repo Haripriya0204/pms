@@ -75,14 +75,17 @@ public class SecurityMasterController {
 				
 	}
 	
-	
-	
 	@DeleteMapping("/deleteData/{isinNumber}")
 	public ResponseEntity<List<SecurityMaster>> deleteStockData(@PathVariable("isinNumber") String isinNumber) {
 		
 		service.deleteStockData(isinNumber);
 		List<SecurityMaster> dataList = service.fetchAllMasterData();
 		return new ResponseEntity<>(dataList, HttpStatus.OK);
+	}
 	
+	@GetMapping("/fetchByName/{nameOfCompany}")
+	public ResponseEntity<SecurityMaster> getMasterDataByName(@PathVariable("nameOfCompany") String nameOfCompany) {
+		SecurityMaster master = service.fetchMasterDataByName(nameOfCompany);
+		return new ResponseEntity<>(master, HttpStatus.OK);
 	}
 }

@@ -1,7 +1,7 @@
 package com.usm.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.usm.dto.DetailsDTO;
+import com.usm.exception.DataNotFoundException;
 import com.usm.model.PortfolioDetails;
+import com.usm.model.Themes;
+import com.usm.repository.PortfolioDetailRepo;
 import com.usm.service.PortfolioDetailService;
+import com.usm.service.ThemesService;
 
 import jakarta.validation.Valid;
 
@@ -25,13 +31,33 @@ public class PortfolioDetailController {
 	
 	@Autowired
     PortfolioDetailService service;
+	
+	
+	@Autowired
+	ThemesService ts;
 
     @PostMapping("/addPortfolio")
-    public ResponseEntity<PortfolioDetails> addPortfolio(@Valid @RequestBody PortfolioDetails ph)
+    public  PortfolioDetails addPortfolio(@Valid @RequestBody DetailsDTO ph)
     {
-    	PortfolioDetails portfolio=service.addPortfolio(ph);
+    	Themes theme = ts.fetchThemesDataByName(ph.getThemeName());
+    	  	
+		System.out.println(ph.getThemeName());
+		System.out.println(theme);
 
-        return new ResponseEntity<>(portfolio,HttpStatus.OK);
+    	
+    	PortfolioDetails details = new PortfolioDetails();
+    	details.setTheme(theme);
+    	details.setPortfolioName(ph.getPortfolioName());
+    	details.setExchange(ph.getExchange());
+    	details.setBaseCurrency(ph.getBaseCurrency());
+    	details.setBenchmark(ph.getBenchmark());
+    	details.setCurrentValue(ph.getCurrentValue());
+    	details.setFundManagerName(ph.getFundManagerName());
+    	details.setInitialInvestment(ph.getInitialInvestment());
+    	details.setRebalancingFrequency(ph.getRebalancingFrequency());
+    	details.setStatus(ph.getStatus());
+    	service.addPortfolio(details);
+        return details;
 
     }
     @GetMapping("/fetchAllportfolio") 

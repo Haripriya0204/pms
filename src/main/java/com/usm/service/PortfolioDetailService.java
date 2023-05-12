@@ -6,10 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.usm.dto.DetailsDTO;
 import com.usm.exception.DataNotFoundException;
-import com.usm.model.PortfolioComposition;
 import com.usm.model.PortfolioDetails;
-import com.usm.repository.PortfolioCompositionRepo;
 import com.usm.repository.PortfolioDetailRepo;
 
 import jakarta.validation.Valid;

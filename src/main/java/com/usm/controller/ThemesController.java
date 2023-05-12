@@ -24,7 +24,7 @@ public class ThemesController {
 	@Autowired
 	ThemesService ts;
 	
-	@PostMapping("/addthemes")
+	@PostMapping("/addThemes")
     public ResponseEntity<Themes> addPthemes(@Valid @RequestBody Themes theme)
     {
     	 Themes themes =ts.addthemes(theme);

@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +37,12 @@ public class PortfolioComposition {
 	@ManyToOne  
 	@JoinColumn(name="portfolioName")
 	private PortfolioDetails portfoliodetail;
+	
+	/*
+	 * @OneToMany(cascade =
+	 * CascadeType.ALL,mappedBy="security",fetch=FetchType.LAZY) private
+	 * List<PortfolioComposition> portfoliocomposition;
+	 */
 	
 	
 	public int getPortfolioCompostionId() {
