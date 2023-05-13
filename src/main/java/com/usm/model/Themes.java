@@ -12,7 +12,7 @@ public class Themes {
 	private String risk;
 	private String investmentHorizon;
 	private double equities;
-	private double fixedIncome;
+	private double bonds;
 	private double commodities;
 	public String getThemeName() {
 		return themeName;
@@ -38,11 +38,12 @@ public class Themes {
 	public void setEquities(double equities) {
 		this.equities = equities;
 	}
-	public double getFixedIncome() {
-		return fixedIncome;
+	
+	public double getBonds() {
+		return bonds;
 	}
-	public void setFixedIncome(double fixedIncome) {
-		this.fixedIncome = fixedIncome;
+	public void setBonds(double bonds) {
+		this.bonds = bonds;
 	}
 	public double getCommodities() {
 		return commodities;
@@ -50,19 +51,20 @@ public class Themes {
 	public void setCommodities(double commodities) {
 		this.commodities = commodities;
 	}
+	
 	@Override
 	public String toString() {
 		return "Themes [themeName=" + themeName + ", risk=" + risk + ", investmentHorizon=" + investmentHorizon
-				+ ", equities=" + equities + ", fixedIncome=" + fixedIncome + ", commodities=" + commodities + "]";
+				+ ", equities=" + equities + ", bonds=" + bonds + ", commodities=" + commodities + "]";
 	}
-	public Themes(String themeName, String risk, String investmentHorizon, double equities, double fixedIncome,
+	public Themes(String themeName, String risk, String investmentHorizon, double equities, double bonds,
 			double commodities) {
 		super();
 		this.themeName = themeName;
 		this.risk = risk;
 		this.investmentHorizon = investmentHorizon;
 		this.equities = equities;
-		this.fixedIncome = fixedIncome;
+		this.bonds = bonds;
 		this.commodities = commodities;
 	}
 	public Themes() {

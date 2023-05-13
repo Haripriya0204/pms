@@ -1,27 +1,21 @@
 package com.usm.service;
-
-
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.usm.exception.DataNotFoundException;
 import com.usm.model.PortfolioComposition;
 import com.usm.repository.PortfolioCompositionRepo;
-
 import jakarta.validation.Valid;
-
-
 @Service
 public class PortfolioCompositionService {
-	
+
 	@Autowired
 	PortfolioCompositionRepo repo;
 
 	public PortfolioComposition addComposition(@Valid PortfolioComposition pc) {
-		
+
 		return repo.save(pc);
 	}
 
@@ -37,57 +31,27 @@ public class PortfolioCompositionService {
 			throw new DataNotFoundException("Composition Id  is not valid");
 		}
 	}
-
-	public PortfolioComposition updatedComositionData(int portfolioCompostionId,
-			PortfolioComposition portfolioComposition) {
-		
-		PortfolioComposition pcs = repo.findById(portfolioCompostionId).orElseThrow(
-				()-> new DataNotFoundException("Data is not available with this portfolioId: "+ portfolioCompostionId));
-		 pcs.setTransactionDate(portfolioComposition.getTransactionDate());
-		 pcs.setSecurityName(portfolioComposition.getSecurityName());
-		 pcs.setEquityCategory(portfolioComposition.getEquityCategory());
-		 pcs.setAssetClass(portfolioComposition.getAssetClass());
-		 pcs.setSubAssetClass(portfolioComposition.getSubAssetClass());
-		 pcs.setExchange(portfolioComposition.getExchange());
-		 pcs.setTransactionType(portfolioComposition.getSubAssetClass());
-		 pcs.setSubAssetClass(portfolioComposition.getSubAssetClass());
-		 pcs.setExchange(portfolioComposition.getExchange());
-		 pcs.setTransactionType(portfolioComposition.getTransactionType());
-		 pcs.setPrice(portfolioComposition.getPrice());
-		 pcs.setQuantity(portfolioComposition.getQuantity());
-		 pcs.setValue(portfolioComposition.getValue());
-		 pcs.setAllocation(portfolioComposition.getAllocation());
-		return repo.save(pcs);
+	
+	public void deletePortfolioComposittion(int portfolioCompostionId) 
+	{
+		repo.deleteById(portfolioCompostionId);
 	}
-	
-	/*
-	 * @PostMapping("/getComposition/{symbol}/{quantity}") public
-	 * ResponseEntity<PortfolioComposition> getComposition(@PathVariable String
-	 * symbol,
-	 * 
-	 * @PathVariable double quantity) {
-	 * 
-	 * SecurityMaster obj = serve.fetchMasterDataBySymbol(symbol);
-	 * PortfolioComposition portfolio = new PortfolioComposition();
-	 * portfolio.setSecurityName(obj.getNameOfCompany());
-	 * portfolio.setEquityCategory(obj.getSeries());
-	 * portfolio.setExchange(obj.getExchange());
-	 * portfolio.setPrice(Double.parseDouble(obj.getLastPrice()));
-	 * portfolio.setTransactionType(obj.getIndustry());
-	 * portfolio.setTransactionDate(LocalDate.now());
-	 * portfolio.setQuantity(quantity);
-	 * portfolio.setValue(Double.parseDouble(obj.getLastPrice()) * quantity);
-	 * 
-	 * return new ResponseEntity<>(portfolio, HttpStatus.OK);
-	 * 
-	 * }
-	 */
 
+	public PortfolioComposition updatedComositionData(int portfolioCompostionId, PortfolioComposition pc) {
+		PortfolioComposition composition = repo.findById(portfolioCompostionId).orElseThrow(
+				() -> new DataNotFoundException(" Data not found with given portfolio Id:" + portfolioCompostionId));
+		composition.setAllocation(pc.getAllocation());
+		composition.setAssetClass(pc.getAssetClass());
+		composition.setEquityCategory(pc.getEquityCategory());
+		composition.setExchange(pc.getExchange());
+		composition.setPortfolioCompostionId(pc.getPortfolioCompostionId());
+		composition.setPrice(pc.getPrice());
+		composition.setQuantity(pc.getQuantity());
+		composition.setSecurityName(pc.getSecurityName());
+		composition.setSubAssetClass(pc.getSubAssetClass());
+		composition.setTransactionDate(LocalDate.now());
+		composition.setTransactionType(pc.getTransactionType());
+		return repo.save(composition);
+	}
 
-	
-	
-	
-	
-	
-	
 }

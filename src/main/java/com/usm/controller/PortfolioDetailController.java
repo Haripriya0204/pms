@@ -1,24 +1,23 @@
 package com.usm.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usm.dto.DetailsDTO;
-import com.usm.exception.DataNotFoundException;
 import com.usm.model.PortfolioDetails;
 import com.usm.model.Themes;
-import com.usm.repository.PortfolioDetailRepo;
 import com.usm.service.PortfolioDetailService;
 import com.usm.service.ThemesService;
 
@@ -62,7 +61,7 @@ public class PortfolioDetailController {
     }
     @GetMapping("/fetchAllportfolio") 
 	public ResponseEntity<List<PortfolioDetails>> getAllPortfolioData() {
-		List<PortfolioDetails> dataList = service.fetchAllMasterData();
+		List<PortfolioDetails> dataList = service.fetchAllPortfolios();
 		return new ResponseEntity<>(dataList, HttpStatus.OK);
 	}
     
@@ -72,9 +71,20 @@ public class PortfolioDetailController {
     	PortfolioDetails pd = service.findByName(portfolioName);
     	return new ResponseEntity<>(pd,HttpStatus.OK);
     }
-	  
-	  
-	 
-	  
+    
+    @DeleteMapping(path ="/deletePortfolio/{portfolioName}")
+    public ResponseEntity<List<PortfolioDetails>> deletePortfolio(@PathVariable("portfolioName")String portfolioName)
+    {
+    	service.deletePortfolio(portfolioName);
+    	List<PortfolioDetails> portfolios= service.fetchAllPortfolios();
+    	return new ResponseEntity<>(portfolios,HttpStatus.OK);
+
+    }
+    
+    @PutMapping(path ="/editPortfolio/{portfolioName}")
+    public PortfolioDetails editPortfolio(@RequestBody PortfolioDetails header,@PathVariable("portfolioName")String portfolioName) 
+    {
+    	return service.updatePortfolio(header, portfolioName);
+    } 
 	  
 }

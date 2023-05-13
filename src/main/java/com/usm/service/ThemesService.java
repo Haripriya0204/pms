@@ -43,11 +43,17 @@ public class ThemesService {
 			ut.setThemeName(theme.getThemeName());
 			ut.setRisk(theme.getRisk());
 			ut.setEquities(theme.getEquities());
-			ut.setFixedIncome(theme.getFixedIncome());
+			ut.setBonds(theme.getBonds());
 			ut.setInvestmentHorizon(theme.getInvestmentHorizon());
 			ut.setCommodities(theme.getCommodities());
 					
 			return repo.save(ut);
+		}
+
+		public void deleteThemes(String themeName)
+		{
+			repo.deleteById(themeName);
+			
 		}
 		
 		

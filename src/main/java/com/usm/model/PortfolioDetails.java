@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Portfolio Details")
+@Table(name="Portfolio_Details")
 public class PortfolioDetails 
 {
 	@Id
@@ -30,7 +30,7 @@ public class PortfolioDetails
 	private String rebalancingFrequency;
 	private String status;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "ThemeName",referencedColumnName="themeName")
     private Themes theme;
 

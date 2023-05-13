@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.usm.model.PortfolioDetails;
 import com.usm.model.Themes;
 import com.usm.service.ThemesService;
 
@@ -53,6 +55,15 @@ public class ThemesController {
 			Themes theme = ts.fetchThemesDataByName(themeName);
 			return new ResponseEntity<>(theme, HttpStatus.OK);
 		} 
+	 
+	 @DeleteMapping(path ="/deleteTheme/{themeName}")
+	    public ResponseEntity<List<Themes>> deleteThemes(@PathVariable("themeName") String themeName)
+	    {
+	    	ts.deleteThemes(themeName);
+	    	List<Themes> themes= ts.getAllThemes();
+	    	return new ResponseEntity<>(themes,HttpStatus.OK);
+
+	    }
 	
 	
 
